@@ -70,7 +70,7 @@ export const getThreeDaysEnergyMix = async (): Promise<DailyEnergyMix[]> => {
 export const findOptimalChargingWindow = async (
   durationHours: number
 ): Promise<OptimalChargingWindow> => {
-  const { today, tomorrow, dayAfterTomorrow } = getDatesForQuery();
+  const { today, dayAfterTomorrow } = getDatesForQuery();
 
   const fromDate = formatDateForApi(today);
   const toDate = formatDateForApi(dayAfterTomorrow);
@@ -84,7 +84,9 @@ export const findOptimalChargingWindow = async (
   const intervalsNeeded = durationHours * 2;
 
   if (data.length < intervalsNeeded) {
-    throw new Error(`Insufficient data: need ${intervalsNeeded} intervals (${durationHours}h), but only ${data.length} available`);
+    throw new Error(
+      `Insufficient data: need ${intervalsNeeded} intervals (${durationHours}h), but only ${data.length} available`
+    );
   }
 
   let maxCleanEnergy = -1;

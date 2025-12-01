@@ -1,17 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 
-export const validateChargingDuration = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
+export const validateChargingDuration = (req: Request, res: Response, next: NextFunction): void => {
   const duration = req.query.duration;
 
   if (!duration) {
     res.status(400).json({
       error: 'Validation Error',
       message: 'Duration parameter is required',
-      field: 'duration'
+      field: 'duration',
     });
     return;
   }
@@ -23,7 +19,7 @@ export const validateChargingDuration = (
       error: 'Validation Error',
       message: 'Duration must be a valid number',
       field: 'duration',
-      received: duration
+      received: duration,
     });
     return;
   }
@@ -33,7 +29,7 @@ export const validateChargingDuration = (
       error: 'Validation Error',
       message: 'Duration must be a whole number (integer)',
       field: 'duration',
-      received: duration
+      received: duration,
     });
     return;
   }
@@ -44,7 +40,7 @@ export const validateChargingDuration = (
       message: 'Duration must be between 1 and 6 hours',
       field: 'duration',
       received: durationNum,
-      allowedRange: { min: 1, max: 6 }
+      allowedRange: { min: 1, max: 6 },
     });
     return;
   }
