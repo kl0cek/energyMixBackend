@@ -21,7 +21,7 @@ export const getDatesForQuery = (): { today: Date; tomorrow: Date; dayAfterTomor
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
   const dayAfterTomorrow = new Date(today);
-  dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
+  dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 3);
 
   return { today, tomorrow, dayAfterTomorrow };
 };
@@ -37,11 +37,9 @@ export const fetchGenerationData = async (from: string, to: string): Promise<Gen
   }
 
   const response = await axios.get<ApiResponse>(`${apiUrl}/${from}/${to}`);
-
   if (!response.data?.data) {
     throw new Error('Invalid API response');
   }
-
   return response.data.data;
 };
 

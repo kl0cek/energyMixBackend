@@ -36,7 +36,7 @@ export const calculateDailyAverage = (intervals: GenerationData[]): GenerationMi
 
 export const getThreeDaysEnergyMix = async (): Promise<DailyEnergyMix[]> => {
   try {
-    const { today, tomorrow, dayAfterTomorrow } = getDatesForQuery();
+    const { today, dayAfterTomorrow } = getDatesForQuery();
 
     const fromDate = formatDateForApi(today);
     const toDate = formatDateForApi(dayAfterTomorrow);
@@ -46,8 +46,13 @@ export const getThreeDaysEnergyMix = async (): Promise<DailyEnergyMix[]> => {
 
     const result: DailyEnergyMix[] = [];
 
-    [today, tomorrow, dayAfterTomorrow].forEach((date) => {
-      const dateStr = formatDateForApi(date);
+    const todayStr = formatDateForApi(today);
+    const sortedDates = Array.from(grouped.keys())
+      .sort()
+      .filter(dateStr => dateStr >= todayStr);
+    
+    
+    sortedDates.slice(0, 3).forEach((dateStr) => {
       const intervals = grouped.get(dateStr) || [];
 
       if (intervals.length > 0) {
