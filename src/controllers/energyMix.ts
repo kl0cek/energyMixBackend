@@ -18,13 +18,6 @@ export const getOptimalCharging = async (req: Request, res: Response): Promise<v
   try {
     const duration = parseInt(req.query.duration as string);
 
-    if (!duration || duration < 1 || duration > 6) {
-      res.status(400).json({
-        error: 'Invalid duration parameter. Must be between 1 and 6 hours.',
-      });
-      return;
-    }
-
     const result = await findOptimalChargingWindow(duration);
     res.json(result);
   } catch (error) {

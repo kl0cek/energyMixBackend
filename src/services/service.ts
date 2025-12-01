@@ -70,14 +70,23 @@ export const getThreeDaysEnergyMix = async (): Promise<DailyEnergyMix[]> => {
 export const findOptimalChargingWindow = async (
   durationHours: number
 ): Promise<OptimalChargingWindow> => {
-  const { tomorrow, dayAfterTomorrow } = getDatesForQuery();
+  const { today, tomorrow, dayAfterTomorrow } = getDatesForQuery();
 
-  const fromDate = formatDateForApi(tomorrow);
+  const fromDate = formatDateForApi(today);
   const toDate = formatDateForApi(dayAfterTomorrow);
 
   const data = await fetchGenerationData(fromDate, toDate);
 
+  if (!data || data.length === 0) {
+    throw new Error('No energy data available');
+  }
+
   const intervalsNeeded = durationHours * 2;
+
+  if (data.length < intervalsNeeded) {
+    throw new Error(`Insufficient data: need ${intervalsNeeded} intervals (${durationHours}h), but only ${data.length} available`);
+  }
+
   let maxCleanEnergy = -1;
   let optimalWindow: OptimalChargingWindow | null = null;
 

@@ -10,9 +10,9 @@ npm install
 
 ## Konfiguracja .env.example
 
-```
-PORT - port
-API_BASE_URL - link do api
+```text
+PORT=3000
+API_BASE_URL=http://localhost
 ```
 
 ## Uruchomienie
@@ -48,7 +48,7 @@ Wyznacza optymalne okno ładowania dla podanego czasu.
 
 ## Struktura projektu
 
-```
+```text
 src/
 ├── controllers/     # Kontrolery HTTP
 ├── services/        # Logika biznesowa

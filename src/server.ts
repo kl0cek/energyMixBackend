@@ -1,15 +1,19 @@
-import express, { Router } from 'express';
+import express from 'express';
 import cors from 'cors';
-import { getEnergyMix, getOptimalCharging } from './controllers/energyMix';
+import router from './router/router';
 
 const app = express();
-app.use(cors());
 
-export const router = Router();
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 app.use('/api', router);
-
-router.get('/energy-mix', getEnergyMix);
-router.get('/optimal-charging', getOptimalCharging);
 
 export default app;
