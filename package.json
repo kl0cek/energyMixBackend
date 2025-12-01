@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "nodemon --watch \"src/**/*.ts\" --exec ts-node src/index.ts",
     "build": "tsc",
-    "start": "node src/prod/index.js",
+    "start": "node prod/index.js",
     "test": "jest",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.ts\""

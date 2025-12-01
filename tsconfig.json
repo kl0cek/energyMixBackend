@@ -3,7 +3,7 @@
     "target": "es2022",
     "module": "commonjs",
     "rootDir": "./src",
-    "outDir": "src/prod",
+    "outDir": "prod",
     "types": ["node", "jest"],
     "esModuleInterop": true,
     "strict": true,
